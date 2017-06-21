@@ -9,13 +9,17 @@ ActiveRecord::Base.logger = Logger.new(STDOUT)
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'tmp/db')
 
 ActiveRecord::Schema.define do
-  drop_table :users
+  begin
+    drop_table :users
+    drop_table :comments
+  rescue
+    # tables will not exist on first run.
+  end
   create_table :users do |t|
     t.string :name
     t.string :email
   end
 
-  drop_table :comments
   create_table :comments do |t|
     t.integer :post_id
   end

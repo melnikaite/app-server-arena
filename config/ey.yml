@@ -30,5 +30,6 @@ environments:
   asa_unicorn: {}
   asa_passenger: {}
   asa_puma: {}
+  asa_iodine: {}
 defaults:
   migrate: false

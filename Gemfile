@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'sinatra', '2.0.0.beta2'
+gem 'sinatra'
 gem 'json'
 gem 'oauth'
 
@@ -22,7 +22,13 @@ group :app_servers do
   gem 'passenger'
   gem 'passenger-rails'
   gem 'rhebok'
-  platforms :ruby, :rbx do
+  platforms :rbx do
+    gem 'unicorn'
+    gem 'unicorn-rails'
+    gem 'thin'
+  end
+  platforms :ruby do
+    gem 'iodine'
     gem 'unicorn'
     gem 'unicorn-rails'
     gem 'thin'

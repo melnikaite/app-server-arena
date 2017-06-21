@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SERVERS=(passenger puma Rhebok thin unicorn)
+SERVERS=(iodine passenger puma Rhebok thin unicorn)
 
 # stop servers
 pkill -f ruby &> /dev/null
@@ -8,9 +8,13 @@ pkill -f ruby &> /dev/null
 # seeds
 ruby ./setup.rb &> /dev/null
 
+# clear old performance data
+rm -R performance
+
 # run servers
 for i in "${!SERVERS[@]}"; do
-  rackup -s ${SERVERS[$i]} --port "300$i" -E production config.ru &> /dev/null &
+  mkdir -p "performance/${SERVERS[$i]}"
+  bundler exec rackup -s ${SERVERS[$i]} --port "300$i" -E production config.ru &> /dev/null &
 done
 sleep 10
 
